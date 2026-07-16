@@ -75,7 +75,7 @@ The extension acts only after the user clicks a button. It can:
 ### Run locally
 
 ```bash
-git clone https://github.com/sksinghdeo/applypilot.git
+git clone https://github.com/YOUR_USERNAME/applypilot.git
 cd applypilot
 npm install
 npm start
@@ -205,3 +205,12 @@ MIT. See [LICENSE](LICENSE).
 ## Disclaimer
 
 ApplyPilot is provided for educational and productivity purposes. Users are responsible for verifying every answer, complying with job-site terms, and obtaining qualified legal or immigration advice when needed.
+
+## Windows installation note
+
+The Windows launcher installs runtime dependencies from the public npm registry. If installation fails, open Command Prompt in the project folder and run:
+
+```bash
+npm install --omit=dev --registry=https://registry.npmjs.org/
+npm start
+```

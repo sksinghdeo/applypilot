@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 — Windows installation fix
+
+- Removed environment-specific package registry URLs from `package-lock.json`.
+- Added a project `.npmrc` that uses the public npm registry.
+- Updated the Windows launcher to install only runtime dependencies from the public registry.
+- Removed `node_modules` from the distributable repository package.
+
 ## 1.0.0 — 2026-07-16
 
 - complete ApplyPilot visual identity and responsive application shell;
