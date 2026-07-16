@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="media/ApplyPilot_LinkedIn_Demo_60FPS_1080x1350.mp4">
+  <a href="media/ApplyPilot_LinkedIn_Demo_1080x1350.mp4">
     <img src="media/social-preview.png" alt="ApplyPilot product preview" width="100%">
   </a>
 </p>
