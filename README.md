@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <strong>▶ <a href="media/ApplyPilot_LinkedIn_Demo_60FPS_1080x1350.mp4">Watch the product demo</a></strong>
+  <strong>▶ <a href="media/ApplyPilot_LinkedIn_Demo_1080x1350.mp4">Watch the product demo</a></strong>
 </p>
 
 ---
