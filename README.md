@@ -12,12 +12,20 @@
   <img alt="Tests" src="https://img.shields.io/badge/tests-7%20passing-079669">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-5666F5">
   <img alt="Local first" src="https://img.shields.io/badge/privacy-local--first-7C4DFF">
+  <img alt="Human in the loop" src="https://img.shields.io/badge/control-human--in--the--loop-6D5DFB">
 </p>
 
-![ApplyPilot dashboard](media/dashboard-demo.png)
+<p align="center">
+  <a href="media/ApplyPilot_LinkedIn_Demo_60FPS_1080x1350.mp4">
+    <img src="media/social-preview.png" alt="ApplyPilot product preview" width="100%">
+  </a>
+</p>
 
-▶ **[Watch the product demo](media/ApplyPilot_LinkedIn_Demo_1080x1350.mp4)**
+<p align="center">
+  <strong>▶ <a href="media/ApplyPilot_LinkedIn_Demo_60FPS_1080x1350.mp4">Watch the 60 FPS product demo</a></strong>
+</p>
 
+---
 
 ## Why ApplyPilot exists
 
@@ -35,26 +43,32 @@ ApplyPilot separates **repetitive preparation** from **human decisions**:
 - fills only routine contact fields through an explicit browser-extension action;
 - never submits an application automatically.
 
-> ApplyPilot is a decision-support tool, not a hiring predictor, immigration adviser, or autonomous mass-application bot.
+> [!IMPORTANT]
+> ApplyPilot is a decision-support tool—not a hiring predictor, immigration adviser, or autonomous mass-application bot.
 
 ## Product tour
 
-### Job analysis and extraction
+### 1. Build a private candidate source of truth
 
-![ApplyPilot analysis](media/analysis.png)
+<p align="center">
+  <img src="media/profile.png" alt="ApplyPilot candidate profile" width="100%">
+</p>
 
-The extension extracts job data in this order:
+Profile data, preferences, work-authorization answers, and application history stay local by default.
 
-1. `schema.org/JobPosting` structured data;
-2. known and generic page elements;
-3. visible-text heuristics;
-4. editable manual fallback.
+### 2. Manage and route multiple resumes
 
-Every extracted field carries a confidence indicator and remains editable before analysis.
+<p align="center">
+  <img src="media/resumes.png" alt="ApplyPilot resume library" width="100%">
+</p>
 
-### Browser companion
+ApplyPilot parses PDF, DOCX, TXT, and Markdown resumes in memory, then recommends the resume with the strongest role-family and keyword overlap.
 
-<p align="center"><img src="media/extension.png" alt="ApplyPilot Chrome extension" width="390"></p>
+### 3. Capture a job page with the browser companion
+
+<p align="center">
+  <img src="media/extension.png" alt="ApplyPilot Chrome extension" width="390">
+</p>
 
 The extension acts only after the user clicks a button. It can:
 
@@ -63,6 +77,43 @@ The extension acts only after the user clicks a button. It can:
 - sync routine contact fields from the local app;
 - fill name, email, phone, location, LinkedIn, and portfolio/website fields;
 - deliberately skip sensitive, legal, demographic, salary, password, and signature fields.
+
+### 4. Analyze fit, blockers, and resume routing
+
+<p align="center">
+  <img src="media/analysis.png" alt="ApplyPilot job analysis" width="100%">
+</p>
+
+The extraction pipeline checks:
+
+1. `schema.org/JobPosting` structured data;
+2. known and generic page elements;
+3. visible-text heuristics;
+4. editable manual fallback.
+
+Every extracted field remains editable before analysis. The resulting report separates:
+
+- matched evidence;
+- unverified or weaker areas;
+- eligibility blockers;
+- recommended resume;
+- confidence and review requirements.
+
+### 5. Review routine and sensitive answers separately
+
+<p align="center">
+  <img src="media/review.png" alt="ApplyPilot answer review queue" width="760">
+</p>
+
+Routine contact facts can be prepared for approval. Sensitive or ambiguous answers remain unapproved until the candidate explicitly reviews them.
+
+### 6. Keep a local decision trail
+
+<p align="center">
+  <img src="media/dashboard-demo.png" alt="ApplyPilot dashboard with saved decisions" width="100%">
+</p>
+
+The dashboard tracks recommendations, review status, blockers, resume routing, and application history without automatically submitting anything.
 
 ## Quick start
 
@@ -74,13 +125,17 @@ The extension acts only after the user clicks a button. It can:
 ### Run locally
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/applypilot.git
+git clone https://github.com/sksinghdeo/applypilot.git
 cd applypilot
 npm install
 npm start
 ```
 
-Open `http://localhost:4173`.
+Open:
+
+```text
+http://localhost:4173
+```
 
 Convenience launchers are also included:
 
@@ -93,14 +148,16 @@ Convenience launchers are also included:
 2. Open `chrome://extensions`.
 3. Enable **Developer mode**.
 4. Select **Load unpacked**.
-5. Choose the repository’s `extension` folder.
-6. Pin ApplyPilot from the browser’s extension menu.
+5. Choose the repository's `extension` folder.
+6. Pin ApplyPilot from the browser's extension menu.
 
-The extension needs only `activeTab`, `scripting`, and `storage`, plus access to the local ApplyPilot server.
+The extension requests only `activeTab`, `scripting`, and `storage`, plus access to the local ApplyPilot server.
 
 ## Optional AI providers
 
-Local mode is the default and requires no key. The settings page can optionally call:
+Local mode is the default and requires no API key.
+
+The settings page can optionally call:
 
 - OpenAI Responses API
 - Anthropic Messages API
@@ -108,7 +165,7 @@ Local mode is the default and requires no key. The settings page can optionally 
 
 API keys are entered by the user and stored only in browser storage. They are never written to the repository or server filesystem. Provider calls fall back to local analysis if they fail.
 
-Model identifiers change over time. Confirm that the model entered in Settings is available in your provider account.
+Model identifiers change over time. Confirm that the model entered in Settings is currently available in your provider account.
 
 ## Architecture
 
@@ -140,7 +197,7 @@ flowchart LR
 ## Repository layout
 
 ```text
-ApplyPilot/
+applypilot/
 ├── public/                  # Local web application
 │   ├── assets/              # Brand and PWA assets
 │   ├── index.html
@@ -151,7 +208,7 @@ ApplyPilot/
 ├── tests/                   # Node test suite
 ├── examples/                # Fictional data only
 ├── docs/                    # Architecture, deployment, safety, launch guides
-├── media/                   # Screenshots, social preview, and launch demo
+├── media/                   # Screenshots, social preview, and product demo
 ├── .github/                 # CI and contribution templates
 ├── server.mjs
 └── package.json
@@ -160,12 +217,12 @@ ApplyPilot/
 ## Scripts
 
 ```bash
-npm start          # Start ApplyPilot on localhost:4173
-npm run dev        # Restart the server on source changes
-npm test           # Run analyzer, extractor, and resume-parser tests
-npm run lint       # Scan repository text for obvious secret markers
-npm run verify     # Run lint and tests
-npm run demo:record # Rebuild the 34-second demo (requires FFmpeg)
+npm start           # Start ApplyPilot on localhost:4173
+npm run dev         # Restart the server on source changes
+npm test            # Run analyzer, extractor, and resume-parser tests
+npm run lint        # Scan repository text for obvious secret markers
+npm run verify      # Run lint and tests
+npm run demo:record # Rebuild the product demo; requires FFmpeg
 ```
 
 ## Safety decisions
@@ -184,18 +241,31 @@ See [PRIVACY.md](PRIVACY.md), [SECURITY.md](SECURITY.md), and [docs/SAFETY_MODEL
 ## Known limitations
 
 - Job-site markup changes frequently, so extraction can require manual correction.
-- The extension’s safe autofill is intentionally narrow.
-- Resume extraction quality depends on document structure; image-only PDFs are not OCR’d.
-- Local fit scoring is heuristic and must not be interpreted as an employer’s decision.
+- The extension's safe autofill is intentionally narrow.
+- Resume extraction quality depends on document structure; image-only PDFs are not OCR'd.
+- Local fit scoring is heuristic and must not be interpreted as an employer's decision.
 - This repository is a local-first MVP, not a hosted multi-user SaaS deployment.
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md). For publishing and deployment, see [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The next priorities are encrypted IndexedDB storage, user-defined answer templates, broader ATS testing, accessibility audits, and provider-side structured-output schemas.
+See [ROADMAP.md](ROADMAP.md).
+
+The next priorities are:
+
+- encrypted IndexedDB storage;
+- user-defined answer templates;
+- broader ATS testing;
+- accessibility audits;
+- provider-side structured-output schemas;
+- expanded automated extraction tests.
+
+For publishing and deployment, see [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Contributing
 
-Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the issue templates. Please do not submit real resumes, personal application answers, API keys, or job-board credentials in issues or pull requests.
+Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the issue templates.
+
+Please do not submit real resumes, personal application answers, API keys, or job-board credentials in issues or pull requests.
 
 ## License
 
