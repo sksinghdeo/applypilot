@@ -1,0 +1,12 @@
+{
+  "title": "Robotics Application Engineer",
+  "company": "Skild AI",
+  "location": "San Francisco, CA · Hybrid",
+  "url": "https://example.com/jobs/robotics-application-engineer",
+  "salaryMin": 120000,
+  "salaryMax": 160000,
+  "salaryCurrency": "USD",
+  "salaryUnit": "YEAR",
+  "workMode": "Hybrid",
+  "description": "Fictional demonstration role requiring 3+ years of robotics or automation experience, Python, C++, ROS2, sensors, validation, testing, field service, and customer integration."
+}

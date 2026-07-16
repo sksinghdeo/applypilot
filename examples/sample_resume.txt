@@ -1,0 +1,3 @@
+Jordan Lee — Fictional Resume
+
+Robotics and mechatronics engineer with four years of experience in electromechanical product development, embedded sensors, Python, C++, ROS2, prototype integration, field testing, and validation.

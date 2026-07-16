@@ -1,0 +1,42 @@
+{
+  "identity": {
+    "fullName": "Jordan Lee",
+    "email": "jordan.lee@example.com",
+    "phone": "+1 555 014 2288",
+    "location": "Phoenix, Arizona",
+    "linkedin": "https://www.linkedin.com/in/jordan-lee-demo",
+    "portfolio": "https://example.com/jordan"
+  },
+  "experienceYears": 4,
+  "professionalSummary": "Hands-on mechatronics engineer with experience in electromechanical product development, embedded sensing, prototype integration, field testing, and validation.",
+  "skills": [
+    {"name": "Python", "years": 4},
+    {"name": "C++", "years": 3},
+    {"name": "ROS2", "years": 2},
+    {"name": "SolidWorks", "years": 4},
+    {"name": "Validation", "years": 4},
+    {"name": "Sensors", "years": 4}
+  ],
+  "workAuthorization": {
+    "authorized": true,
+    "requiresNow": false,
+    "requiresFuture": false,
+    "citizen": true,
+    "permanentResident": false,
+    "usPerson": true,
+    "activeClearance": false,
+    "refugeeAsylee": false
+  },
+  "preferences": {
+    "targetRoles": ["Robotics Engineer", "Mechatronics Engineer", "Application Engineer"],
+    "excludedRoles": ["Pure Sales", "Pure Software"],
+    "locations": ["Arizona", "California", "Remote"],
+    "salaryMin": 95000,
+    "remote": true,
+    "hybrid": true,
+    "onSite": true,
+    "relocation": true,
+    "travel": true,
+    "acceptContract": false
+  }
+}

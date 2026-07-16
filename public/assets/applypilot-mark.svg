@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">ApplyPilot</title>
+  <desc id="desc">A geometric letter A with an upward arrow.</desc>
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6C7CFF"/>
+      <stop offset="0.55" stop-color="#5363F5"/>
+      <stop offset="1" stop-color="#7C4DFF"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="18" y1="14" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E7EAFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#111936" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="17" fill="url(#g)" filter="url(#shadow)"/>
+  <path d="M15.5 44 28.7 18h8.1L48.5 44h-8.8l-2.2-5.5H26.8L24.4 44h-8.9Zm14-12.3h5.4l-2.6-7.1-2.8 7.1Z" fill="url(#shine)"/>
+  <path d="M39.6 17.8h9.7v9.7" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m48.8 18.4-10 10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>

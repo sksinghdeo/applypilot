@@ -1,0 +1,26 @@
+{
+  "name": "applypilot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Privacy-first, human-in-the-loop job application copilot",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test",
+    "lint": "node scripts/check.mjs",
+    "verify": "npm run lint && npm test",
+    "demo:record": "node scripts/record-demo.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "mammoth": "^1.9.1",
+    "pdf-parse": "1.1.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  },
+  "license": "MIT"
+}

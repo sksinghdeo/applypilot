@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ApplyPilot</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <header class="header">
+    <div class="brand"><img src="applypilot-mark.svg" alt=""><div><strong>ApplyPilot</strong><span>Browser companion</span></div></div>
+    <button id="openApp" class="icon-button" title="Open dashboard">↗</button>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">CURRENT JOB PAGE</span>
+    <h1>Analyze before you apply.</h1>
+    <p>Capture structured job details, review fit in the local app, and keep final decisions under your control.</p>
+    <button id="capture" class="button primary"><span>✦</span> Analyze this job</button>
+    <div id="status" class="status"><i></i><span>ApplyPilot app should be running at localhost:4173.</span></div>
+  </section>
+
+  <section id="jobPreview" class="card hidden">
+    <div class="card-head"><span class="eyebrow">EXTRACTED</span><span id="confidence" class="confidence">Ready</span></div>
+    <h2 id="jobTitle">Job title</h2>
+    <p id="jobCompany">Company</p>
+    <div class="details"><span id="jobLocation">Location not detected</span><span id="jobSalary">Salary not detected</span></div>
+    <button id="reviewInApp" class="button primary">Review in ApplyPilot →</button>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><div><span class="eyebrow">SAFE AUTOFILL</span><h2>Routine contact fields</h2></div><button id="sync" class="text-button">Sync from app</button></div>
+    <div class="profile-summary" id="profileSummary"><div class="profile-avatar">?</div><div><strong>No profile synced</strong><span>Save your profile in the app, then sync.</span></div></div>
+    <button id="fill" class="button secondary">Fill safe fields</button>
+    <p class="guardrail">ApplyPilot deliberately skips salary, sponsorship, citizenship, demographics, passwords, signatures, and legal attestations.</p>
+  </section>
+  <script src="popup.js"></script>
+</body>
+</html>

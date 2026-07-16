@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ApplyPilot is a privacy-first, human-in-the-loop job application copilot.">
+  <meta name="theme-color" content="#111936">
+  <title>ApplyPilot — Human-in-the-loop applications</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/applypilot-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/applypilot-192.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="ApplyPilot dashboard">
+        <img src="/assets/applypilot-mark.svg" alt="">
+        <div><strong>ApplyPilot</strong><span>Human-in-the-loop applications</span></div>
+      </a>
+      <nav id="nav" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span><span>Dashboard</span></button>
+        <button class="nav-item" data-view="profile"><span class="nav-icon">◎</span><span>Candidate profile</span></button>
+        <button class="nav-item" data-view="resumes"><span class="nav-icon">▤</span><span>Resume library</span></button>
+        <button class="nav-item" data-view="analyze"><span class="nav-icon">✦</span><span>Analyze a job</span></button>
+        <button class="nav-item" data-view="review"><span class="nav-icon">✓</span><span>Review answers</span><b id="reviewBadge" class="nav-badge hidden">0</b></button>
+        <button class="nav-item" data-view="applications"><span class="nav-icon">◫</span><span>Application log</span></button>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span><span>AI settings</span></button>
+      </nav>
+      <div class="privacy-card">
+        <div class="privacy-icon">◉</div>
+        <div><strong>Local by default</strong><p>Profile, resumes, and application history stay in this browser unless you deliberately call an AI provider.</p></div>
+      </div>
+      <p class="sidebar-version">ApplyPilot v1.0.0</p>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menuButton" class="icon-button menu-button" aria-label="Open navigation">☰</button>
+        <div class="page-heading"><p class="eyebrow">JOB APPLICATION COPILOT</p><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="top-actions">
+          <span id="saveState" class="status-pill"><i></i>Saved locally</span>
+          <button id="loadSample" class="button ghost">Load fictional demo</button>
+        </div>
+      </header>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <section class="view active" id="view-dashboard">
+        <article class="hero-card">
+          <div class="hero-copy">
+            <span class="badge">PRIVATE • REVIEWABLE • MODEL-OPTIONAL</span>
+            <h2>Apply thoughtfully.<br><span>Keep control.</span></h2>
+            <p>Analyze role fit, route the strongest resume, prepare truthful answers, and pause before every sensitive decision.</p>
+            <div class="hero-actions"><button class="button primary" data-go="analyze">Analyze your next job <span>→</span></button><button class="button soft" data-go="profile">Set up profile</button></div>
+            <div class="trust-row"><span>✓ No blind mass applying</span><span>✓ No automatic submission</span><span>✓ No fabricated answers</span></div>
+          </div>
+          <div class="hero-visual">
+            <div class="mini-window">
+              <div class="mini-window-bar"><span></span><span></span><span></span><small>JOB ANALYSIS</small></div>
+              <div class="mini-score"><div class="score-orbit"><strong id="heroScore">—</strong><small>/10</small></div><div><span id="heroRecommendation">No analysis yet</span><small>Latest recommendation</small></div></div>
+              <div class="mini-row"><span>Resume routing</span><b id="heroResume">Waiting for analysis</b></div>
+              <div class="mini-row"><span>Sensitive review</span><b id="heroReview">Human approval required</b></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon blue">◫</div><div><span>Total reviewed</span><strong id="statReviewed">0</strong><small>Saved in this browser</small></div></article>
+          <article class="stat-card"><div class="stat-icon green">✓</div><div><span>Ready to apply</span><strong id="statReady">0</strong><small>Strong fit, no blocker</small></div></article>
+          <article class="stat-card"><div class="stat-icon amber">!</div><div><span>Needs review</span><strong id="statReview">0</strong><small>Unresolved decisions</small></div></article>
+          <article class="stat-card"><div class="stat-icon red">×</div><div><span>Blocked</span><strong id="statBlocked">0</strong><small>Eligibility or policy blocker</small></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel span-two">
+            <div class="panel-head"><div><p class="eyebrow">RECENT ACTIVITY</p><h3>Application decisions</h3></div><button class="text-button" data-go="applications">View all →</button></div>
+            <div id="recentApplications" class="empty-state"><div class="empty-icon">◫</div><strong>No applications logged yet</strong><p>Analyze a role and save the decision to start your history.</p></div>
+          </article>
+          <article class="panel safety-panel">
+            <div class="panel-head"><div><p class="eyebrow">CONTROL LAYER</p><h3>Human approval checkpoints</h3></div></div>
+            <ul class="check-list"><li><span class="ok">✓</span>Routine contact fields may be prepared</li><li><span class="warn">!</span>Sponsorship and citizenship require review</li><li><span class="warn">!</span>Salary and legal attestations require review</li><li><span class="ok">✓</span>Final submission always stays with the user</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-profile">
+        <div class="section-intro"><div><p class="eyebrow">SOURCE OF TRUTH</p><h2>Candidate profile</h2><p>Enter facts once. ApplyPilot uses only these facts when proposing application answers.</p></div><div class="button-row"><button id="importProfileBtn" class="button ghost">Import JSON</button><button id="exportProfileBtn" class="button ghost">Export JSON</button><input id="importProfileFile" type="file" accept="application/json" hidden></div></div>
+        <form id="profileForm" class="form-stack">
+          <article class="panel"><div class="panel-head"><div><p class="step-label">01</p><h3>Identity and contact</h3></div><span class="field-note">Used for routine fields</span></div><div class="form-grid">
+            <label>Full legal name<input name="identity.fullName" autocomplete="name" placeholder="Jordan Lee"></label>
+            <label>Email<input name="identity.email" type="email" autocomplete="email" placeholder="jordan@example.com"></label>
+            <label>Phone<input name="identity.phone" type="tel" autocomplete="tel" placeholder="+1 555 010 1234"></label>
+            <label>Current location<input name="identity.location" placeholder="Phoenix, Arizona"></label>
+            <label>LinkedIn URL<input name="identity.linkedin" type="url" placeholder="https://www.linkedin.com/in/..."></label>
+            <label>Portfolio / Website URL<input name="identity.portfolio" type="url" placeholder="https://yourname.com"></label>
+          </div></article>
+
+          <article class="panel"><div class="panel-head"><div><p class="step-label">02</p><h3>Experience and skills</h3></div></div><div class="form-grid">
+            <label>Documented professional experience<input name="experienceYears" type="number" min="0" max="50" step="0.5"><small>Years</small></label>
+            <label class="wide">Professional summary<textarea name="professionalSummary" rows="4" placeholder="A factual summary used for job analysis and written responses."></textarea></label>
+            <label class="wide">Skills and years<textarea id="skillsInput" rows="6" placeholder="Python: 4&#10;SolidWorks: 3&#10;ROS2: 2"></textarea><small>One skill per line. Years are optional.</small></label>
+          </div></article>
+
+          <article class="panel sensitive-panel"><div class="panel-head"><div><p class="step-label">03</p><h3>Work authorization</h3></div><span class="sensitive-chip">Sensitive • always reviewed</span></div><p class="notice"><b>Important:</b> These answers can affect eligibility. Verify them independently; ApplyPilot does not provide legal or immigration advice.</p><div class="form-grid compact">
+            <label>Authorized to work?<select name="workAuthorization.authorized"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>Require sponsorship now?<select name="workAuthorization.requiresNow"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>Require sponsorship in future?<select name="workAuthorization.requiresFuture"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>U.S. citizen?<select name="workAuthorization.citizen"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>Permanent resident?<select name="workAuthorization.permanentResident"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>U.S. Person under ITAR/EAR?<select name="workAuthorization.usPerson"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>Active security clearance?<select name="workAuthorization.activeClearance"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+            <label>Refugee/asylee status?<select name="workAuthorization.refugeeAsylee"><option value="">Select</option><option value="true">Yes</option><option value="false">No</option></select></label>
+          </div></article>
+
+          <article class="panel"><div class="panel-head"><div><p class="step-label">04</p><h3>Job preferences</h3></div></div><div class="form-grid">
+            <label class="wide">Target roles<textarea name="preferences.targetRoles" rows="3" placeholder="Robotics Engineer, Mechatronics Engineer, Systems Integration Engineer"></textarea></label>
+            <label class="wide">Excluded roles<textarea name="preferences.excludedRoles" rows="2" placeholder="Pure Sales, Pure Software"></textarea></label>
+            <label class="wide">Preferred locations<textarea name="preferences.locations" rows="2" placeholder="Arizona, California, Michigan, Remote"></textarea></label>
+            <label>Minimum annual salary<input name="preferences.salaryMin" type="number" min="0" step="1000" placeholder="95000"></label>
+            <label>Salary response text<input name="preferences.salaryText" placeholder="Open based on role, location, and total compensation"></label>
+            <div class="switch-grid wide"><label class="switch-label"><input name="preferences.remote" type="checkbox"><span>Remote</span></label><label class="switch-label"><input name="preferences.hybrid" type="checkbox"><span>Hybrid</span></label><label class="switch-label"><input name="preferences.onSite" type="checkbox"><span>On-site</span></label><label class="switch-label"><input name="preferences.relocation" type="checkbox"><span>Relocation</span></label><label class="switch-label"><input name="preferences.travel" type="checkbox"><span>Travel</span></label><label class="switch-label"><input name="preferences.acceptContract" type="checkbox"><span>Contract roles</span></label></div>
+          </div></article>
+          <div class="sticky-action"><div><strong>Your data stays local</strong><small>Syncing to the extension shares only routine contact fields with the local server.</small></div><div class="button-row"><button type="button" id="syncExtensionBtn" class="button ghost">Sync to extension</button><button type="submit" class="button primary">Save candidate profile</button></div></div>
+        </form>
+      </section>
+
+      <section class="view" id="view-resumes">
+        <div class="section-intro"><div><p class="eyebrow">RESUME ROUTING</p><h2>Resume library</h2><p>Upload PDF, DOCX, TXT, or MD resumes. Files are parsed in memory and are not written to disk.</p></div><button id="addResumeBtn" class="button primary">+ Add resume</button></div>
+        <div id="resumeDropzone" class="dropzone"><input id="resumeFile" type="file" accept=".pdf,.docx,.txt,.md" hidden><div class="drop-icon">⇧</div><div><strong>Drop a resume here</strong><p>or click to upload • 8 MB maximum</p></div></div>
+        <div id="resumeList" class="resume-grid"></div>
+        <div id="resumeEmpty" class="empty-state panel"><div class="empty-icon">▤</div><strong>No resumes added</strong><p>Add at least one resume so ApplyPilot can route the strongest version for each job.</p></div>
+
+        <dialog id="resumeDialog" class="modal"><form method="dialog" id="resumeForm"><div class="modal-head"><div><p class="eyebrow">RESUME DETAILS</p><h3 id="resumeDialogTitle">Add resume</h3></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><input name="id" type="hidden"><div class="form-grid one-col">
+          <label>Resume name<input name="name" required placeholder="Robotics & Mechatronics Resume"></label>
+          <label>Role family<select name="category"><option>Robotics</option><option>Mechatronics</option><option>Systems Engineering</option><option>Mechanical Design</option><option>Electrical / Electronics</option><option>Automotive</option><option>Thermal</option><option>Manufacturing</option><option>General</option></select></label>
+          <label>Source file<input name="filename" readonly placeholder="No file uploaded"></label>
+          <label>Keywords<textarea name="keywords" rows="3" placeholder="ROS2, Python, sensors, validation"></textarea></label>
+          <label>Resume summary<textarea name="summary" rows="5" placeholder="What this resume emphasizes."></textarea></label>
+          <label class="hidden"><textarea name="extractedText"></textarea></label>
+        </div><div class="modal-actions"><button value="cancel" class="button ghost">Cancel</button><button type="submit" value="default" class="button primary">Save resume</button></div></form></dialog>
+      </section>
+
+      <section class="view" id="view-analyze">
+        <div class="section-intro"><div><p class="eyebrow">JOB INTELLIGENCE</p><h2>Analyze an opportunity</h2><p>Capture a browser page with the extension or paste the posting. Every extracted field remains editable.</p></div><div class="button-row"><button id="useCaptureBtn" class="button ghost">Use captured browser job</button><button id="loadJobSampleBtn" class="button soft">Load sample role</button></div></div>
+        <div id="captureBanner" class="capture-banner hidden"><div><span class="pulse-dot"></span><strong>Browser capture ready</strong><p id="captureBannerText">A job page was detected.</p></div><button id="clearCaptureBtn" class="text-button">Clear</button></div>
+        <form id="jobForm" class="form-stack">
+          <article class="panel job-input-panel"><div class="panel-head"><div><p class="step-label">JOB INPUT</p><h3>Opportunity details</h3></div><span id="extractionSummary" class="field-note">Enter manually or capture a page</span></div><div class="form-grid">
+            <label>Job title<div class="input-with-status"><input name="title" required placeholder="Robotics Application Engineer"><i data-confidence="title"></i></div></label>
+            <label>Company<div class="input-with-status"><input name="company" placeholder="Skild AI"><i data-confidence="company"></i></div></label>
+            <label>Location<div class="input-with-status"><input name="location" placeholder="San Francisco, CA"><i data-confidence="location"></i></div></label>
+            <label>Job URL<input name="url" type="url" placeholder="https://company.com/jobs/..."></label>
+            <label>Salary minimum<div class="input-with-status"><input name="salaryMin" type="number" min="0" step="1" placeholder="120000"><i data-confidence="salary"></i></div></label>
+            <label>Salary maximum<input name="salaryMax" type="number" min="0" step="1" placeholder="160000"></label>
+            <label>Currency<select name="salaryCurrency"><option>USD</option><option>CAD</option><option>GBP</option><option>EUR</option><option>AUD</option></select></label>
+            <label>Pay period<select name="salaryUnit"><option value="YEAR">Per year</option><option value="HOUR">Per hour</option><option value="MONTH">Per month</option><option value="WEEK">Per week</option><option value="DAY">Per day</option></select></label>
+            <label>Work mode<select name="workMode"><option>Not specified</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select></label>
+            <label class="wide">Job description<textarea name="description" rows="13" required placeholder="Paste the full job description here."></textarea><small id="descriptionCount">0 characters</small></label>
+          </div><div class="helper-strip"><span>ⓘ Location and compensation are extracted from structured JobPosting data first, then page elements, then visible text.</span><span>Always verify the original posting.</span></div></article>
+          <div class="analyze-bar"><div><strong id="analysisEngineLabel">Local analysis</strong><small id="analysisEngineHelp">No API key required</small></div><button id="analyzeButton" type="submit" class="button primary large"><span class="button-label">Analyze job</span><span class="button-loader"></span></button></div>
+        </form>
+
+        <div id="analysisEmpty" class="analysis-empty"><div class="analysis-illustration"><span>Profile</span><b>→</b><span>Job</span><b>→</b><span>Decision</span></div><h3>Your analysis will appear here</h3><p>Fit score, blockers, resume routing, gaps, and reviewable answers—all grounded in your saved profile.</p></div>
+
+        <div id="analysisResult" class="analysis-result hidden">
+          <article class="result-hero panel"><div class="result-score"><div class="score-dial"><strong id="resultScore">0.0</strong><small>/ 10</small></div><span id="resultEngine" class="engine-chip">LOCAL</span></div><div class="result-summary"><p class="eyebrow">RECOMMENDATION</p><h2 id="resultRecommendation">Proceed to review</h2><p id="resultRole">Role details</p><div id="resultTags" class="tag-row"></div></div><div class="result-action"><button id="saveDecisionBtn" class="button primary">Save decision</button><button class="button ghost" data-go="review">Review answers</button></div></article>
+          <div class="analysis-grid">
+            <article class="panel"><div class="panel-head"><div><p class="eyebrow">WHY IT FITS</p><h3>Strong matches</h3></div></div><ul id="strengthList" class="insight-list positive"></ul></article>
+            <article class="panel"><div class="panel-head"><div><p class="eyebrow">WATCH ITEMS</p><h3>Gaps and concerns</h3></div></div><ul id="concernList" class="insight-list caution"></ul></article>
+            <article class="panel resume-recommendation"><div class="panel-head"><div><p class="eyebrow">RESUME ROUTING</p><h3>Recommended resume</h3></div></div><div id="recommendedResume" class="resume-route"></div></article>
+            <article class="panel"><div class="panel-head"><div><p class="eyebrow">ELIGIBILITY</p><h3>Blocker check</h3></div></div><div id="blockerList" class="blocker-list"></div></article>
+          </div>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">TRANSPARENCY</p><h3>Detected skills</h3></div></div><div class="skill-columns"><div><h4>Matched</h4><div id="matchedSkills" class="tag-row"></div></div><div><h4>Not verified</h4><div id="missingSkills" class="tag-row muted"></div></div></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-review">
+        <div class="section-intro"><div><p class="eyebrow">HUMAN CHECKPOINT</p><h2>Review proposed answers</h2><p>Routine facts may be pre-approved. Sensitive, ambiguous, or generated responses require explicit approval.</p></div><div class="review-progress"><strong id="reviewApprovedCount">0 / 0</strong><span>approved</span></div></div>
+        <div id="reviewEmpty" class="empty-state panel"><div class="empty-icon">✓</div><strong>No answers to review</strong><p>Analyze a job first. Proposed application answers will appear here.</p></div>
+        <div id="reviewList" class="review-list"></div>
+        <div id="reviewFooter" class="sticky-action hidden"><div><strong id="reviewFooterText">Review required</strong><small>Approval changes are stored locally.</small></div><button id="approveRoutineBtn" class="button soft">Approve routine facts</button></div>
+      </section>
+
+      <section class="view" id="view-applications">
+        <div class="section-intro"><div><p class="eyebrow">DECISION LOG</p><h2>Application history</h2><p>Track what you reviewed, why you proceeded, and which resume was selected.</p></div><div class="button-row"><button id="exportCsvBtn" class="button ghost">Export CSV</button><button id="clearLogBtn" class="button danger-ghost">Clear log</button></div></div>
+        <article class="panel table-panel"><div class="table-toolbar"><label class="search-field">⌕<input id="applicationSearch" placeholder="Search company, title, location..."></label><select id="applicationFilter"><option value="all">All decisions</option><option value="ready">Ready to apply</option><option value="review">Needs review</option><option value="blocked">Blocked</option></select></div><div class="table-wrap"><table><thead><tr><th>Opportunity</th><th>Fit</th><th>Decision</th><th>Resume</th><th>Date</th><th></th></tr></thead><tbody id="applicationTable"></tbody></table></div><div id="applicationEmpty" class="empty-state"><div class="empty-icon">◫</div><strong>No saved decisions</strong><p>Your application log is stored only in this browser.</p></div></article>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="section-intro"><div><p class="eyebrow">MODEL OPTIONS</p><h2>AI settings</h2><p>Local mode works without a key. Provider mode sends the current profile, resume summaries, and job description to the selected API.</p></div></div>
+        <div class="settings-grid">
+          <form id="settingsForm" class="panel form-stack"><div class="panel-head"><div><p class="step-label">AI PROVIDER</p><h3>Analysis engine</h3></div></div><div class="form-grid one-col">
+            <label>Provider<select name="provider" id="providerSelect"><option value="local">Local rules engine</option><option value="openai">OpenAI API</option><option value="anthropic">Anthropic API</option><option value="gemini">Gemini API</option></select></label>
+            <label>Model ID<input name="model" id="modelInput" placeholder="Not required for local mode"><small id="modelHint">Local mode uses deterministic heuristics.</small></label>
+            <label>API key<input name="apiKey" id="apiKeyInput" type="password" autocomplete="off" placeholder="Stored only in this browser"><small>Never commit an API key to GitHub.</small></label>
+            <label class="switch-label"><input id="rememberKey" type="checkbox"><span>Remember API key in this browser</span></label>
+          </div><button class="button primary" type="submit">Save settings</button></form>
+          <div class="panel provider-guide"><div class="panel-head"><div><p class="step-label">DATA FLOW</p><h3>What gets sent?</h3></div></div><div class="data-flow"><div><span>1</span><strong>Candidate profile</strong><small>Only fields you entered</small></div><b>→</b><div><span>2</span><strong>Resume summaries</strong><small>Extracted text is capped</small></div><b>→</b><div><span>3</span><strong>Job posting</strong><small>Current analysis only</small></div></div><div class="notice blue"><b>Local mode:</b> nothing leaves your computer. Provider mode is optional and should be used only after reviewing the provider’s data controls and costs.</div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

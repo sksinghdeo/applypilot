@@ -1,0 +1,12 @@
+node_modules
+.git
+.github
+media
+extension
+docs
+examples
+tests
+scripts
+*.md
+*.zip
+.env
