@@ -16,9 +16,8 @@
 
 ![ApplyPilot dashboard](media/dashboard-demo.png)
 
-▶ **[Watch the 34-second LinkedIn-ready product demo](media/ApplyPilot_LinkedIn_Demo_1080x1350.mp4)**
+▶ **[Watch the product demo](media/ApplyPilot_LinkedIn_Demo_1080x1350.mp4)**
 
-Use `media/social-preview.png` as the GitHub repository social preview.
 
 ## Why ApplyPilot exists
 
