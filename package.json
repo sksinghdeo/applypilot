@@ -16,7 +16,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "mammoth": "^1.9.1",
+    "mammoth": "^1.13.0",
     "pdf-parse": "1.1.1"
   },
   "devDependencies": {
